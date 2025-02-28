@@ -2,6 +2,7 @@
 #define ISLANDU_LIBT3_HPP_
 
 #include <stdexcept>
+// #include <algorithm>
 
 namespace libt3 {
 
@@ -57,6 +58,14 @@ class TicTacToeBoard {
         return static_cast<CellOwner>(flipped);
     }
 
+    /// @brief 
+    /// @param player 
+    /// @return 
+    static inline constexpr int player_to_integral(CellOwner player) noexcept
+    {
+        return static_cast<int>(player);
+    }
+
 public:
     /// @brief Implements a tic-tac-toe board
     /// @param init_player Player to make the first move
@@ -84,9 +93,14 @@ public:
             return MoveResult::Error;
 
         this->grid_[row][column] = this->next_move_;
-        this->next_move_ = flip_player(this->next_move_);
 
-        /// TODO: Update balance factors 
+        /// TODO: Update balance factors
+        auto player_integral = player_to_integral(this->next_move_);
+        this->row_bals_[row] += player_integral;
+        this->col_bals_[column] += player_integral;
+        /// TODO: Finish the diagonal balance
+
+        this->next_move_ = flip_player(this->next_move_);
         return MoveResult::Ok;
     }
 };
