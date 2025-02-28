@@ -50,7 +50,7 @@ class TicTacToeBoard {
     /// @brief Toggles between players
     /// @param player Input player
     /// @return The `CellOwner` opposite `player`
-    static inline CellOwner flip_owner(CellOwner player) noexcept
+    static inline CellOwner flip_player(CellOwner player) noexcept
     {
         auto as_integral = static_cast<int>(player);
         auto flipped = as_integral * -1;
@@ -84,9 +84,9 @@ public:
             return MoveResult::Error;
 
         this->grid_[row][column] = this->next_move_;
-        this->next_move_ = flip_owner(this->next_move_);
+        this->next_move_ = flip_player(this->next_move_);
 
-
+        /// TODO: Update balance factors 
         return MoveResult::Ok;
     }
 };
