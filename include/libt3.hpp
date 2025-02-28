@@ -5,36 +5,41 @@
 
 namespace libt3 {
 
-/// @brief 
+/// @brief Enumeration cell-ownership states
 enum class CellOwner : int {
+    /// @brief Indicates cell is owned by player O
     PlayerO = -1,
+    /// @brief Indicates cell is vacant
     None    = 0,
+    /// @brief Indicates cell is owned by player X
     PlayerX = 1
 };
 
-
-/// @brief 
+/// @brief Enumeration of possible move outcomes
 enum class MoveResult : int {
+    /// @brief Indicates successful move
     Ok = 0,
+    /// @brief Indicates invalid move
     Error = -1
 };
 
-
 /// @brief TODO:
 class TicTacToeBoard {
-    /// @brief 
+    /// @brief 3x3 matrix containing cell-ownership states
     CellOwner grid_[3][3];
-    /// @brief 
+    /// @brief Indicates the player that moves next
     CellOwner next_move_;
-    /// @brief 
+    /// @brief Tracks the balance of rows between the 2 players
     int row_bals_[3];
+    /// @brief Tracks the balance of columns between the 2 players
     int col_bals_[3];
+    /// @brief Tracks the balance of the 2 diagonals between the 2 players
     int diag_bals_[2];
 
-    /// @brief TODO:
-    /// @param row 
-    /// @param column 
-    /// @return 
+    /// @brief Validates row and column values
+    /// @param row Row index on the board
+    /// @param column Column index on the board
+    /// @return `true`: row and column valid, otherwise `false`
     static inline constexpr bool validate_location(int row, int column) noexcept
     {
         auto row_valid = row >= 0 && row <= 2;
@@ -42,20 +47,20 @@ class TicTacToeBoard {
         return row_valid && column_valid;
     }
 
-    /// @brief TODO:
-    /// @param owner 
-    /// @return 
-    static inline CellOwner flip_owner(CellOwner owner) noexcept
+    /// @brief Toggles between players
+    /// @param player Input player
+    /// @return The `CellOwner` opposite `player`
+    static inline CellOwner flip_owner(CellOwner player) noexcept
     {
-        auto as_integral = static_cast<int>(owner);
+        auto as_integral = static_cast<int>(player);
         auto flipped = as_integral * -1;
         return static_cast<CellOwner>(flipped);
     }
 
 public:
-    /// @brief TODO:
-    /// @param init_player 
-    inline constexpr TicTacToeBoard(CellOwner init_player) noexcept
+    /// @brief Implements a tic-tac-toe board
+    /// @param init_player Player to make the first move
+    inline constexpr TicTacToeBoard(CellOwner init_player)
         : grid_{}, next_move_(init_player),
           row_bals_{}, col_bals_{}, diag_bals_{}
     {
@@ -64,10 +69,10 @@ public:
         }
     }
 
-    /// @brief TODO:
-    /// @param row 
-    /// @param column 
-    /// @return 
+    /// @brief Places the next X or O on the board TODO: update the balance factors
+    /// @param row Row selector
+    /// @param column Column selector
+    /// @return Result of the attempted move
     inline constexpr MoveResult place_next(int row, int column) noexcept
     {
         if (!validate_location(row, column))
@@ -80,6 +85,8 @@ public:
 
         this->grid_[row][column] = this->next_move_;
         this->next_move_ = flip_owner(this->next_move_);
+
+
         return MoveResult::Ok;
     }
 };
