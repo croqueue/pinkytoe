@@ -2,4 +2,4 @@
 A portable Tic-Tac-Toe engine
 
 ## Description
-A C++17 header-only library that provides simple and portable Tic-Tac-Toe game engine.
+A C++17 header-only library that provides a simple and portable Tic-Tac-Toe game engine.
