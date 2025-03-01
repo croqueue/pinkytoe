@@ -1,4 +1,3 @@
-CC			:= g++
 WFLAGS		:= -Wall -Werror -Wextra -pedantic
 CPPSTD		:= c++17
 LIBS		:= -lgtest_main -lgtest -lpthread
@@ -15,7 +14,7 @@ clean:
 	@rm -rf $(BUILD_DIR)
 
 $(BUILD_DIR)/libt3-test: $(BUILD_DIR)
-	$(CC) -o $@ $(INCLUDE) $(WFLAGS) -std=$(CPPSTD) $(TEST_SRC) $(LIBS)
+	@g++ -o $@ $(INCLUDE) $(WFLAGS) -std=$(CPPSTD) $(TEST_SRC) $(LIBS)
 
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
