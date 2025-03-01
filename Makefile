@@ -1,13 +1,12 @@
-# Compilation and linking
 CC			:= g++
 WFLAGS		:= -Wall -Werror -Wextra -pedantic
 CPPSTD		:= c++17
 LIBS		:= -lgtest_main -lgtest -lpthread
-INCLUDE 	:= -Iinclude
+INCLUDE		:= -Iinclude
 TEST_SRC	:= tests/libt3-test.cpp
 BUILD_DIR	:= build
 
-# Targets
+# Build targets
 .PHONY		= test clean
 
 test: $(BUILD_DIR)/libt3-test
