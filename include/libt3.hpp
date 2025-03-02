@@ -1,7 +1,6 @@
 #ifndef ISLANDU_LIBT3_HPP_
 #define ISLANDU_LIBT3_HPP_
 
-#include <algorithm>
 #include <stdexcept>
 
 namespace libt3 {
@@ -26,8 +25,12 @@ enum class MoveResult : int
   PlayerXWins = 1,
   /// @brief Result of the move is Player O winning the game
   PlayerOWins = 2,
-  /// @brief Indicates invalid move
-  Error = -1
+  /// @brief Indicates the cell is already occupied
+  CellOccupied = -1,
+  /// @brief Indicates invalid row/column arguments
+  RangeError = -2,
+  /// @brief Indicates game has ended
+  GameIsOver = -3
 };
 
 /// @brief Implementation of the Tic-Tac-Toe board
@@ -157,19 +160,39 @@ public:
   /// @return Result of the attempted move
   inline constexpr MoveResult place_next(int row, int column) noexcept
   {
+    if (this->next_move_ == CellOwner::None)
+      return MoveResult::GameIsOver;
+
     if (!validate_location(row, column))
-      return MoveResult::Error;
+      return MoveResult::RangeError;
 
     auto occupant = this->grid_[row][column];
 
     if (occupant != CellOwner::None)
-      return MoveResult::Error;
+      return MoveResult::CellOccupied;
 
+    // Claim cell on the grid
     this->grid_[row][column] = this->next_move_;
+
+    // Update balances
     auto player_integral = player_to_integral(this->next_move_);
     this->board_balance_.update_balances(player_integral, row, column);
-    this->next_move_ = flip_player(this->next_move_);
-    return this->board_balance_.check_for_winner();
+
+    // Check for winner
+    auto placement_result = this->board_balance_.check_for_winner();
+
+    switch (placement_result) {
+      case MoveResult::PlayerXWins:
+      case MoveResult::PlayerOWins:
+        this->next_move_ = CellOwner::None;
+        break;
+      default:
+        this->next_move_ = flip_player(this->next_move_);
+        break;
+    }
+
+    // Indicates successful placement
+    return placement_result;
   }
 };
 
