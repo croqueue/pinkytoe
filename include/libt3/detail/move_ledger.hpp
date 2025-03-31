@@ -14,8 +14,7 @@ namespace libt3::detail
 /// @return 
 inline constexpr Player flip_player(Player player) noexcept
 {
-  auto p = enum_as_integral(player);
-  return static_cast<Player>(p * -1);
+  return static_cast<Player>(enum_as_integral(player) * -1);
 }
 
 /// @brief 
@@ -39,12 +38,27 @@ class MoveLedger final
     }
   };
 
-  BoardPosition move_history_[9] {};
-  std::int8_t player_tbl_[2]{};
+  struct BalanceTable final {
+    // 24 bits
+    std::int8_t row0 : 3;
+    std::int8_t row1 : 3;
+    std::int8_t row2 : 3;
+    std::int8_t col0 : 3;
+    std::int8_t col1 : 3;
+    std::int8_t col2 : 3;
+    std::int8_t diag0 : 3;
+    std::int8_t diag1 : 3;
+
+    BalanceTable() = default;
+  };
+
+  BoardPosition move_history_[9]{};
+  std::int8_t player_tbl_[2]{}; // <=== THIS IS DUMB
   std::uint8_t move_count_{};
-  std::int8_t r_bals_[3]{};
-  std::int8_t c_bals_[3]{};
-  std::int8_t d_bals_[2]{};
+  BalanceTable bal_tbl_{};
+  // std::int8_t r_bals_[3]{};
+  // std::int8_t c_bals_[3]{};
+  // std::int8_t d_bals_[2]{};
 
   /// @brief Integral value of the next player to move
   inline constexpr std::int8_t next_player() noexcept;
@@ -56,7 +70,7 @@ class MoveLedger final
   inline constexpr BoardPosition& last_position() noexcept;
 
   /// @brief Indicates whether or not a player has won
-  inline constexpr Status current_score() noexcept;
+  inline constexpr Status check_status() noexcept;
 
 public:
   /// @brief 
@@ -87,18 +101,17 @@ constexpr Status MoveLedger::record_move(Row row, Column column) noexcept
   auto r = enum_as_integral(row);
   auto c = enum_as_integral(column);
   
+  // Update row/column/diagonal balances
   this->r_bals_[r] += p;
   this->c_bals_[c] += p;
   this->d_bals_[0] += p * bool_as_integral<std::int8_t>(r == c);
   this->d_bals_[1] += p * bool_as_integral<std::int8_t>(r == 2 - c);
 
   // Add move to history
-  BoardPosition& entry = this->move_history_[this->move_count_];
-  entry.r = row;
-  entry.c = column;
+  this->move_history_[this->move_count_] = BoardPosition(row, column);
   ++this->move_count_;
   
-  return this->current_score();
+  return this->check_status();
 }
 
 constexpr Status MoveLedger::undo_last() noexcept
@@ -144,7 +157,7 @@ constexpr MoveLedger::BoardPosition& MoveLedger::last_position() noexcept
   return this->move_history_[this->move_count_ - 1];
 }
 
-constexpr Status MoveLedger::current_score() noexcept
+constexpr Status MoveLedger::check_status() noexcept
 {
   for (auto i = 0; i < 3; ++i) {
     auto r_bal = this->r_bals_[i];
@@ -157,6 +170,8 @@ constexpr Status MoveLedger::current_score() noexcept
       break;
     }
   }
+
+  // if (this->r_bals_[0])
 
   for (auto i = 0; i < 3; ++i) {
     auto c_bal = this->c_bals_[i];
