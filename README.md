@@ -14,8 +14,8 @@ Once I stabilize the library, I encourage anyone in the FOSS community to fork m
 
 ## Dependencies
 `libpinkytoe` depends upon the following headers from the C++ standard library:
-- `cstddef`
 - `cstdint`
+- `type_traits`
 
 Regardless of the target of your Tic-Tac-Toe application, `libpinkytoe` is easily portable because it only requires a C++17 compiler to build and use it.
 
