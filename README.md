@@ -1,5 +1,5 @@
-# pinkytoe
-_Note: This library is pre-release and is not stable_
+# libpinkytoe
+_Note: This library is pre-release and is not stable_ 
 A simple and portable Tic-Tac-Toe implementation (C++17). This library is intended to be equally usable by C++ programmers working in userland or bare-metal.
 
 ## Purpose
