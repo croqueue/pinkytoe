@@ -1,3 +1,5 @@
+# NOTE: WE ARE MIGRATING TO CMAKE...THIS MAKEFILE WILL BE REMOVED
+
 WFLAGS		:= -Wall -Werror -Wextra -pedantic
 CPPSTD		:= c++17
 LIBS		:= -lgtest_main -lgtest -lpthread

@@ -1,5 +1,7 @@
-# libt3-cpp
-A pedagogical example of a C++ header-only library that provides a simple and portable Tic-Tac-Toe game engine (C++17)
+# pinkytoe (very much in progress)
+A simple and portable Tic-Tac-Toe implementation (C++17). This library is intended to be equally usable by C++ programmers working in userland or bare-metal.
+
+# TODO: Fix the docs prototype below
 
 # Installation
 This is a header-only library, so the only installation method is to simply copy `include/libt3` from this repository into your project's include directory.
