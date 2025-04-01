@@ -1,5 +1,7 @@
+![libpinkytoe](https://github.com/islandu/pinkytoe/blob/main/.github/images/mascot.png)
+
 # libpinkytoe
-_Note: This library is pre-release and is not stable_ 
+_Note: This library is pre-release and is not stable_  
 A simple and portable Tic-Tac-Toe implementation (C++17). This library is intended to be equally usable by C++ programmers working in userland or bare-metal.
 
 ## Purpose
