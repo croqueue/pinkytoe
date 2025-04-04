@@ -4,7 +4,7 @@
 namespace pinkytoe
 {
 
-constexpr void MoveHistory::push(std::uint8_t r, std::uint8_t c) noexcept
+constexpr void MoveHistory::push_back(std::uint8_t r, std::uint8_t c) noexcept
 {
   using impl::position_to_index;
 
@@ -16,12 +16,12 @@ constexpr void MoveHistory::push(std::uint8_t r, std::uint8_t c) noexcept
   ++this->count_;
 }
 
-constexpr void MoveHistory::pop() noexcept
+constexpr void MoveHistory::pop_back() noexcept
 {
   --this->count_;
 }
 
-constexpr void MoveHistory::pop(std::uint8_t& r, std::uint8_t& c) noexcept
+constexpr void MoveHistory::pop_back(std::uint8_t& r, std::uint8_t& c) noexcept
 {
   --this->count_;
   std::uint8_t byte_index = this->count_ >> 1;

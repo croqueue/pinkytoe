@@ -1,31 +1,34 @@
+#ifndef PINKYTOE_IMPL_META_H_
+#define PINKYTOE_IMPL_META_H_
+
 #include <type_traits>
 
 namespace pinkytoe::impl
 {
 
-// TEMPLATE PROTOTYPES
+/// Function-template prototypes
 
-/// @brief 
-/// @tparam TEnum 
-/// @param e 
-/// @return 
+/// @brief Statically casts an enum to its underlying integral type
+/// @tparam TEnum The enumeration data type
+/// @param e Enumeration member
+/// @return Integral-type equivalent of the enumeration member
 template <typename TEnum>
 inline constexpr auto enum_as_integral(TEnum e) noexcept;
 
-/// @brief 
-/// @tparam TInt 
-/// @param expression 
-/// @return 
+/// @brief Statically casts from boolean to a specified integer type
+/// @tparam TInt Return type (must specify)
+/// @param expression Boolean value
+/// @return `0` or `1` with `TInt` type
 template <typename TInt>
-inline constexpr TInt bool_as_integral(bool expression) noexcept;
+inline constexpr TInt bool_as_integral(bool b) noexcept;
 
 
-// TEMPLATE IMPLEMENTATIONS
+/// Function-template implementations
 
-/// @brief 
-/// @tparam TEnum 
-/// @param e 
-/// @return 
+/// @brief Statically casts an enum to its underlying integral type
+/// @tparam TEnum The enumeration data type
+/// @param e Enumeration member
+/// @return Integral-type equivalent of the enumeration member
 template <typename TEnum>
 constexpr auto enum_as_integral(TEnum e) noexcept
 {
@@ -33,10 +36,10 @@ constexpr auto enum_as_integral(TEnum e) noexcept
   return static_cast<IntegralType>(e);
 }
 
-/// @brief 
-/// @tparam TInt 
-/// @param expression 
-/// @return 
+/// @brief Statically casts from boolean to a specified integer type
+/// @tparam TInt Return type (must specify)
+/// @param expression Boolean value
+/// @return `0` or `1` with `TInt` type
 template <typename TInt>
 constexpr TInt bool_as_integral(bool expression) noexcept
 {
@@ -46,3 +49,5 @@ constexpr TInt bool_as_integral(bool expression) noexcept
 }
 
 } // namespace pinkytoe::impl
+
+#endif // !PINKYTOE_IMPL_META_H_

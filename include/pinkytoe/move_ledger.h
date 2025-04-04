@@ -1,3 +1,6 @@
+#ifndef PINKYTOE_MOVE_LEDGER_H_
+#define PINKYTOE_MOVE_LEDGER_H_
+
 #include <cstdint>
 #include "pinkytoe/enums.h"
 #include "pinkytoe/move_history.h"
@@ -25,11 +28,11 @@ public:
   /// @param r 
   /// @param c 
   /// @return 
-  inline constexpr void put_next(std::uint8_t r, std::uint8_t c) noexcept;
+  inline constexpr void record_next(std::uint8_t r, std::uint8_t c) noexcept;
 
   /// @brief 
   /// @return 
-  inline constexpr void pop_last() noexcept;
+  inline constexpr void remove_last() noexcept;
 
   // PROPERTIES
 
@@ -39,7 +42,9 @@ public:
 
   /// @brief 
   /// @return 
-  inline constexpr Player start_player() noexcept;
+  inline constexpr Player first_player() noexcept;
 };
 
 } // namespace pinkytoe
+
+#endif // !PINKYTOE_MOVE_LEDGER_H_
