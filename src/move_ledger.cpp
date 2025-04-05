@@ -11,6 +11,9 @@ constexpr MoveLedger::MoveLedger(Player start_player) noexcept
 {
 }
 
+/// @brief Records next move
+/// @param r Row index
+/// @param c Column index
 constexpr void MoveLedger::record_next(std::uint8_t r, std::uint8_t c) noexcept
 {
   using impl::bool_as_integral;
@@ -31,9 +34,10 @@ constexpr void MoveLedger::record_next(std::uint8_t r, std::uint8_t c) noexcept
   this->d_bals_[1] += on_diag1 * p;
 
   // Add move to history
-  this->history_.push_back(r, c);
+  this->history_.push(r, c);
 }
 
+/// @brief Removes last record from ledger
 constexpr void MoveLedger::remove_last() noexcept
 {
   using impl::bool_as_integral;
@@ -42,7 +46,7 @@ constexpr void MoveLedger::remove_last() noexcept
 
   // Pop last move from history
   std::uint8_t r, c;
-  this->history_.pop_back(r, c);
+  this->history_.pop(r, c);
 
   auto move_count = this->history_.move_count();
   auto player = whose_turn(this->start_player_, move_count);
@@ -58,11 +62,23 @@ constexpr void MoveLedger::remove_last() noexcept
   this->d_bals_[1] -= on_diag1 * p;
 }
 
+/// @brief Removes last record from ledger
+/// @param r Stores removed row index
+/// @param c Stores removed row index
+constexpr void remove_last(std::uint8_t& r, std::uint8_t& c) noexcept
+{
+
+}
+
+/// @brief Returns number of moves currently recorded
+/// @return Number of recorded moves
 constexpr std::uint8_t MoveLedger::move_count() noexcept
 {
   return this->history_.move_count();
 }
 
+/// @brief Returns the player configured to go first
+/// @return The player the moves/moved first
 constexpr Player MoveLedger::first_player() noexcept
 {
   return this->start_player_;

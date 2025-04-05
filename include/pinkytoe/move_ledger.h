@@ -16,32 +16,30 @@ class MoveLedger final {
   MoveHistory history_{};
 
 public:
-  // CONSTRUCTORS
 
-  /// @brief 
-  /// @param start_player 
-  inline constexpr MoveLedger(Player start_player) noexcept;
+  /// @brief Configuration of first player required to construct
+  /// @param first_player 
+  inline constexpr MoveLedger(Player first_player) noexcept;
 
-  // OPERATIONS
-
-  /// @brief 
-  /// @param r 
-  /// @param c 
-  /// @return 
+  /// @brief Records next move
+  /// @param r Row index
+  /// @param c Column index
   inline constexpr void record_next(std::uint8_t r, std::uint8_t c) noexcept;
 
-  /// @brief 
-  /// @return 
+  /// @brief Removes last record from ledger
   inline constexpr void remove_last() noexcept;
 
-  // PROPERTIES
+  /// @brief Removes last record from ledger
+  /// @param r Stores removed row index
+  /// @param c Stores removed row index
+  inline constexpr void remove_last(std::uint8_t& r, std::uint8_t& c);
 
-  /// @brief 
-  /// @return 
+  /// @brief Returns number of moves currently recorded
+  /// @return Number of recorded moves
   inline constexpr std::uint8_t move_count() noexcept;
 
-  /// @brief 
-  /// @return 
+  /// @brief Returns the player configured to go first
+  /// @return The player the moves/moved first
   inline constexpr Player first_player() noexcept;
 };
 

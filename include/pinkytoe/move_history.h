@@ -15,21 +15,26 @@ class MoveHistory final {
 public:
   MoveHistory() = default;
 
-  /// @brief 
-  /// @param r 
-  /// @param c 
-  inline constexpr void push_back(std::uint8_t r, std::uint8_t c) noexcept;
+  /// @brief Retrieves move position from the top of the stack 
+  /// @param r Stores row index from the top of the stack
+  /// @param c Stores column index from the top of the stack
+  inline constexpr void top(std::uint8_t& r, std::uint8_t& c) const noexcept;
 
-  /// @brief 
-  inline constexpr void pop_back() noexcept;
+  /// @brief Adds next move to history 
+  /// @param r Row index
+  /// @param c Column index
+  inline constexpr void push(std::uint8_t r, std::uint8_t c) noexcept;
 
-  /// @brief 
-  /// @param r 
-  /// @param c 
-  inline constexpr void pop_back(std::uint8_t& r, std::uint8_t& c) noexcept;
+  /// @brief Removes last move from history
+  inline constexpr void pop() noexcept;
 
-  /// @brief 
-  /// @return 
+  /// @brief Removes last move from history
+  /// @param r Stores popped row index
+  /// @param c Stores popped column index
+  inline constexpr void pop(std::uint8_t& r, std::uint8_t& c) noexcept;
+
+  /// @brief Returns number of moves currently recorded
+  /// @return Number of recorded moves
   inline constexpr std::uint8_t move_count() const noexcept;
 };
 
