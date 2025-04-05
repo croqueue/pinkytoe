@@ -2,7 +2,7 @@
 
 # libpinkytoe
 _Note: This library is pre-release and is not stable_  
-A simple and portable Tic-Tac-Toe implementation (C++17). This library is intended to be equally usable by C++ programmers working in userland, kernel space, or on bare metal.
+A simple and portable TicTacToe engine (C++17). This library is intended to be equally usable by C++ programmers working in userland, kernel space (via the C wrapper), or on bare metal.
 
 ## Purpose
 `libpinkytoe` serves the following functions:

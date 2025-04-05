@@ -1,6 +1,7 @@
 #include <cstdint>
 #include "pinkytoe/move_history.h"
-#include "position.h"
+#include "meta.hpp"
+#include "position.hpp"
 
 namespace pinkytoe
 {
@@ -25,7 +26,6 @@ constexpr void MoveHistory::top(std::uint8_t& r, std::uint8_t& c) const noexcept
 constexpr void MoveHistory::push(std::uint8_t r, std::uint8_t c) noexcept
 {
   using impl::position_to_index;
-
   std::uint8_t frame_pos = position_to_index(r, c);
   std::uint8_t byte_index = this->count_ >> 1;
   auto shift = (this->count_ & 1) << 2;
@@ -52,13 +52,6 @@ constexpr void MoveHistory::pop(std::uint8_t& r, std::uint8_t& c) noexcept
   auto shift = (this->count_ & 1) << 2;
   std::uint8_t frame_pos = (this->data_[byte_index] >> shift) & 15;
   index_to_position(frame_pos, r, c);
-}
-
-/// @brief Returns number of moves currently recorded
-/// @return Number of recorded moves
-constexpr std::uint8_t MoveHistory::move_count() const noexcept
-{
-  return this->count_;
 }
 
 } // namespace pinkytoe

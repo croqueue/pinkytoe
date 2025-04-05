@@ -1,7 +1,7 @@
 #include "pinkytoe/enums.h"
 #include "pinkytoe/move_ledger.h"
 #include "meta.hpp"
-#include "player.h"
+#include "player.hpp"
 
 namespace pinkytoe
 {
@@ -45,7 +45,7 @@ constexpr void MoveLedger::remove_last() noexcept
   using impl::whose_turn;
 
   // Pop last move from history
-  std::uint8_t r, c;
+  std::uint8_t r{}, c{};
   this->history_.pop(r, c);
 
   auto move_count = this->history_.move_count();

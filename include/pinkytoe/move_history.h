@@ -8,7 +8,7 @@ namespace pinkytoe
 
 /// @brief Tracks player choices over the course of a game
 class MoveHistory final {
-  
+  /// Each choice is 4 bits x 9 maximum choices for a game = 36 bits
   std::uint8_t data_[5];
   std::uint8_t count_;
 
@@ -35,7 +35,10 @@ public:
 
   /// @brief Returns number of moves currently recorded
   /// @return Number of recorded moves
-  inline constexpr std::uint8_t move_count() const noexcept;
+  inline constexpr std::uint8_t move_count() const noexcept
+  {
+    return this->count_;
+  }
 };
 
 } // namespace pinkytoe

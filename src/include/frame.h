@@ -3,7 +3,6 @@
 
 #include <cstdint>
 #include "pinkytoe/enums.h"
-#include "position.h"
 
 namespace pinkytoe::impl
 {

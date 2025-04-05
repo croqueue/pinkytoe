@@ -1,2 +1,2 @@
 #include <gtest/gtest.h>
-#include "position.h"
+#include "position.hpp"

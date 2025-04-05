@@ -1,6 +1,6 @@
 #include <cstdint>
 #include "frame.h"
-#include "position.h"
+#include "position.hpp"
 
 namespace pinkytoe::impl
 {
