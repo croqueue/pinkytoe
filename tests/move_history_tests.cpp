@@ -1,2 +1,6 @@
 #include <gtest/gtest.h>
-#include "pinkytoe/move_history.h"
+#include "move_history.hpp"
+
+TEST(MoveHistoryTests, hello_test) {
+	ASSERT_EQ("hello", "Hello");
+}

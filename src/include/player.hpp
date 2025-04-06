@@ -1,8 +1,10 @@
-#ifndef PINKYTOE_IMPL_PLAYER_H_
-#define PINKYTOE_IMPL_PLAYER_H_
+#ifndef PINKYTOE_IMPL_PLAYER_HPP_
+#define PINKYTOE_IMPL_PLAYER_HPP_
 
 #include <cstdint>
+
 #include "pinkytoe/enums.h"
+#include "meta.hpp"
 
 namespace pinkytoe::impl
 {
@@ -75,4 +77,4 @@ constexpr std::int8_t flip_player(std::int8_t player) noexcept
 
 } // namespace pinkytoe::impl
 
-#endif // !PINKYTOE_IMPL_PLAYER_H_
+#endif // !PINKYTOE_IMPL_PLAYER_HPP_

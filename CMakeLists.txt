@@ -8,17 +8,19 @@ project(pinkytoe
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_subdirectory(tests)
+
 file(GLOB SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 add_library(pinkytoe STATIC ${SRC_FILES})
-set_target_properties(pinkytoe PROPERTIES VERSION ${PROJECT_VERSION})
 
 target_include_directories(pinkytoe
   PUBLIC
-    $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  PRIVATE
+  # PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/include
 )
+
+set_target_properties(pinkytoe PROPERTIES VERSION ${PROJECT_VERSION})
 
 target_compile_options(pinkytoe PUBLIC -Wall -Werror -Wextra -pedantic)
