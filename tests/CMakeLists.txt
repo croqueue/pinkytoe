@@ -23,12 +23,10 @@ add_executable(
 
 target_include_directories(frame_tests
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/include
 )
 
 target_link_libraries(frame_tests
-  pinkytoe
   GTest::gtest_main
 )
 
