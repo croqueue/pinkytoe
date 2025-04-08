@@ -8,11 +8,17 @@
 namespace pinkytoe::impl
 {
 
-/// @brief A snapshot of the game
+/// @brief A snapshot of the game board
 class Frame final {
-  std::uint8_t data_[3] { 0x00 }; // 9 pixels * 2 bits per pixel = 18 bits
+  std::uint8_t data_[3]; // 9 pixels * 2 bits per pixel = 18 bits
 
 public:
+
+  /// @brief 
+  inline constexpr Frame() noexcept
+    : data_{ 0x55, 0x55, 0x55 }
+  {
+  }
 
   /// @brief Retrieves pixel value at position
   /// @param r Row index

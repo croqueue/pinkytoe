@@ -10,7 +10,7 @@ TEST(FrameTests, constructor_test) {
   /// All pixels should be 0
   for (auto r = 0; r < 3; ++r) {
     for (auto c = 0; c < 3; ++c) {
-      ASSERT_EQ(frame.get_pixel(r, c), static_cast<std::int8_t>(-1));
+      ASSERT_EQ(frame.get_pixel(r, c), static_cast<std::int8_t>(0));
     }
   }
 }
