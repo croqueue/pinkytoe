@@ -15,7 +15,12 @@ class MoveHistory final {
   std::uint8_t count_;
 
 public:
-  MoveHistory() = default;
+  /// @brief Initializes empty history
+  inline constexpr MoveHistory() noexcept
+    : data_{0}
+    , count_{0}
+  {
+  }
 
   /// @brief Retrieves move position from the top of the stack 
   /// @param r Stores row index from the top of the stack
@@ -67,7 +72,7 @@ public:
 
   /// @brief Returns number of moves currently recorded
   /// @return Number of recorded moves
-  inline constexpr std::uint8_t move_count() const noexcept
+  inline constexpr std::uint8_t count() const noexcept
   {
     return this->count_;
   }

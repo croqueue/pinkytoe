@@ -37,7 +37,7 @@ public:
     using impl::whose_turn;
   
     // Update balances
-    auto move_count = this->history_.move_count();
+    auto move_count = this->history_.count();
     auto player = whose_turn(this->first_player_, move_count);
     auto p = enum_as_integral(player);
   
@@ -64,7 +64,7 @@ public:
     std::uint8_t r{}, c{};
     this->history_.pop(r, c);
   
-    auto move_count = this->history_.move_count();
+    auto move_count = this->history_.count();
     auto player = whose_turn(this->first_player_, move_count);
     auto p = enum_as_integral(player);
   
@@ -90,7 +90,7 @@ public:
     // Pop last move from history
     this->history_.pop(r, c);
   
-    auto move_count = this->history_.move_count();
+    auto move_count = this->history_.count();
     auto player = whose_turn(this->first_player_, move_count);
     auto p = enum_as_integral(player);
   
@@ -108,7 +108,7 @@ public:
   /// @return Number of recorded moves
   inline constexpr std::uint8_t move_count() noexcept
   {
-    return this->history_.move_count();
+    return this->history_.count();
   }
 
   /// @brief Returns the player configured to go first

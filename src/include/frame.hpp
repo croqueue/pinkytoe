@@ -14,9 +14,9 @@ class Frame final {
 
 public:
 
-  /// @brief 
+  /// @brief Initializes empty frame
   inline constexpr Frame() noexcept
-    : data_{ 0x55, 0x55, 0x55 }
+    : data_{ 0x55, 0x55, 0x01 }
   {
   }
 

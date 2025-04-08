@@ -1,6 +1,12 @@
 #include <gtest/gtest.h>
+#include <cstdint>
+
 #include "move_history.hpp"
 
-TEST(MoveHistoryTests, hello_test) {
-	ASSERT_EQ("hello", "Hello");
+using pinkytoe::impl::MoveHistory;
+
+TEST(MoveHistoryTests, constructor_test) {
+	MoveHistory history;
+
+	ASSERT_EQ(history.count(), 0);
 }

@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <cstdint>
+
 #include "frame.hpp"
 
 using pinkytoe::impl::Frame;
@@ -14,6 +15,7 @@ TEST(FrameTests, constructor_test) {
     }
   }
 }
+
 
 TEST(FrameTests, get_set_test) {
   std::int8_t p[3] = { -1, 0, 1 };
