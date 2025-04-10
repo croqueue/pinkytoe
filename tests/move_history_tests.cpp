@@ -27,8 +27,6 @@ TEST(MoveHistoryTests, push_test) {
 	}
 }
 
-// pop_only_test
-
 TEST(MoveHistoryTests, pop_only_test) {
 	MoveHistory history;
 	std::uint8_t r_tmp{}, c_tmp{};
