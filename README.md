@@ -2,25 +2,39 @@
 
 # libpinkytoe
 _Note: This library is pre-release and is not stable_  
-A simple and portable TicTacToe engine (C++17). This library is intended to be equally usable by C++ programmers working in userland, kernel space (via the C wrapper), or on bare metal.
+A tiny and portable tic-tac-toe engine that is equally usable by programmers working in userland, kernel space, or on bare metal.
 
 ## Purpose
 `libpinkytoe` serves the following functions:
-- As a pedagogical example for those just getting their feet wet with _modern_ C++ (metaprogramming, while indeed fabulous/powerful, is not a major focus here)
-- As an example of memory safety in C++ (this is more about the build system)
-- As a place for C++ enthusiasts of all experience levels to form community around simple game engines that are fun to build.
+- As a pedagogical example for those just getting their feet wet with modern C++ (template metaprogramming, while indeed fabulous/powerful, is not a major focus here)
+- As an example of memory safety in C/C++ (this is more about the build system)
+- As a place for C/C++ enthusiasts of all experience levels to form community around simple game engines that are fun to build
 
-Once I stabilize the library, I encourage anyone in the FOSS community to fork me and create examples of `libpinkytoe`'s usage in a wide variety of contexts (e.g., a graphic or terminal-based Tic-Tac-Toe game, or a firmware implementation of the game for a RaspberryPi Pico with peripherals that handle the controller and view).
+I encourage anyone in the FOSS community to fork me and create examples of `libpinkytoe`'s usage in a wide variety of contexts, e.g.,
+- A GUI or terminal-based Tic-Tac-Toe game
+- A firmware implementation of the game with peripheral hardware handling player controls and view options
+- No wrong answers, go nuts!
 
 ## Dependencies
 `libpinkytoe` depends upon the following headers from the C++ standard library:
 - `cstdint`
 - `type_traits`
 
-Regardless of the target of your Tic-Tac-Toe application, `libpinkytoe` is easily portable because it only requires a C++17 compiler to build and use it.
+Regardless of the target of your tic-tac-toe-based game, `libpinkytoe` is easily portable because it only requires a minimal C++17 compiler to build and use it.
 
-## Installation
-CMake is the only current build option for `libpinkytoe`.
+## Build/Install
+CMake is the only current build option for `libpinkytoe`. After you clone this repository...
+```bash
+cd pinkytoe
+cmake -S . -B build
+cmake --build build
+```
+
+Then run the unit tests...
+
+```bash
+ctest --test-dir build/tests
+```
 
 ## Test Suite
-The `libpinkytoe` test suite is built upon the GoogleTest framework.
+The `libpinkytoe` test suite is built upon the GoogleTest framework [https://github.com/google/googletest](https://github.com/google/googletest)
