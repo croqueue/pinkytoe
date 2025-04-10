@@ -6,12 +6,16 @@
 using pinkytoe::impl::Frame;
 
 TEST(FrameTests, constructor_test) {
+  /// Arrange: Create a default object
   Frame frame;
 
-  /// All pixels should be 0
+  /// All squares should be 0
   for (auto r = 0; r < 3; ++r) {
     for (auto c = 0; c < 3; ++c) {
-      ASSERT_EQ(frame.get_square(r, c), static_cast<std::int8_t>(0));
+      /// Act: Get square value
+      auto p = frame.get_square(r, c);
+      /// Assert: The value should be 0
+      ASSERT_EQ(p, static_cast<std::int8_t>(0));
     }
   }
 }

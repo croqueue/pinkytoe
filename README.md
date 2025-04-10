@@ -2,7 +2,7 @@
 
 # libpinkytoe
 _Note: This library is pre-release and is not stable_  
-A tiny and portable tic-tac-toe engine that is equally usable by programmers working in userland, kernel space, or on bare metal.
+A tiny and portable tic-tac-toe engine that is equally usable by game developers working in userland, kernel space, or on bare metal.
 
 ## Purpose
 `libpinkytoe` serves the following functions:
