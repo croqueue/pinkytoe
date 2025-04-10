@@ -1,5 +1,5 @@
-#ifndef PINKYTOE_IMPL_META_H_
-#define PINKYTOE_IMPL_META_H_
+#ifndef PINKYTOE_IMPL_META_HPP_
+#define PINKYTOE_IMPL_META_HPP_
 
 #include <type_traits>
 
@@ -50,4 +50,4 @@ constexpr TInt bool_as_integral(bool expression) noexcept
 
 } // namespace pinkytoe::impl
 
-#endif // !PINKYTOE_IMPL_META_H_
+#endif // !PINKYTOE_IMPL_META_HPP_

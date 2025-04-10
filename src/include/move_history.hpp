@@ -10,15 +10,14 @@ namespace pinkytoe::impl
 
 /// @brief Tracks player choices over the course of a game
 class MoveHistory final {
-  /// Each choice is 4 bits x 9 maximum choices for a game = 36 bits
-  std::uint8_t data_[5];
+  std::uint8_t data_[5]; // 9 maximum choices for a game = 36 bits required
   std::uint8_t count_;
 
 public:
   /// @brief Initializes empty history
   inline constexpr MoveHistory() noexcept
-    : data_{0}
-    , count_{0}
+    : data_{}
+    , count_{}
   {
   }
 

@@ -1,5 +1,5 @@
-#ifndef PINKYTOE_IMPL_FRAME_H_
-#define PINKYTOE_IMPL_FRAME_H_
+#ifndef PINKYTOE_IMPL_FRAME_HPP_
+#define PINKYTOE_IMPL_FRAME_HPP_
 
 #include <cstdint>
 
@@ -10,7 +10,7 @@ namespace pinkytoe::impl
 
 /// @brief A snapshot of the game board
 class Frame final {
-  std::uint8_t data_[3]; // 9 pixels * 2 bits per pixel = 18 bits
+  std::uint8_t data_[3]; // 9 squares * 2 bits per square = 18 bits required
 
 public:
 
@@ -20,11 +20,11 @@ public:
   {
   }
 
-  /// @brief Retrieves pixel value at position
+  /// @brief Retrieves square value at position
   /// @param r Row index
   /// @param c Column index
-  /// @return Current pixel value
-  inline constexpr std::int8_t get_pixel(std::uint8_t r, std::uint8_t c) noexcept
+  /// @return Current square value
+  inline constexpr std::int8_t get_square(std::uint8_t r, std::uint8_t c) noexcept
   {
     /// Calculate storage location of the bits
     std::uint8_t index = rc_to_index(r, c);
@@ -36,11 +36,11 @@ public:
     return p;
   }
 
-  /// @brief Sets pixel value at position
+  /// @brief Sets square value at position
   /// @param r Row index
   /// @param c Column index
-  /// @param p Pixel value to set
-  inline constexpr void set_pixel(std::uint8_t r, std::uint8_t c, std::int8_t p) noexcept
+  /// @param p square value to set
+  inline constexpr void set_square(std::uint8_t r, std::uint8_t c, std::int8_t p) noexcept
   {
     /// Convert value to unsigned bits
     std::uint8_t bits = static_cast<std::uint8_t>(p + 1);
@@ -56,4 +56,4 @@ public:
 
 } // namespace pinkytoe::impl
 
-#endif // !PINKYTOE_IMPL_FRAME_H_
+#endif // !PINKYTOE_IMPL_FRAME_HPP_
