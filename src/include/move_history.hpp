@@ -5,11 +5,11 @@
 
 #include "position.hpp"
 
-namespace pinkytoe::impl
-{
+namespace pinkytoe::impl {
 
 /// @brief Tracks player choices over the course of a game
-class MoveHistory final {
+class MoveHistory final
+{
   std::uint8_t data_[5]; // 9 maximum choices for a game = 36 bits required
   std::uint8_t count_;
 
@@ -21,13 +21,13 @@ public:
   {
   }
 
-  /// @brief Retrieves move position from the top of the stack 
+  /// @brief Retrieves move position from the top of the stack
   /// @param r Stores row index from the top of the stack
   /// @param c Stores column index from the top of the stack
   inline constexpr void top(std::uint8_t& r, std::uint8_t& c) const noexcept
   {
     using impl::index_to_rc;
-  
+
     auto top_index = this->count_ - 1;
     std::uint8_t byte_index = top_index >> 1;
     auto shift = (top_index & 1) << 2;
@@ -35,7 +35,7 @@ public:
     index_to_rc(frame_pos, r, c);
   }
 
-  /// @brief Adds next move to history 
+  /// @brief Adds next move to history
   /// @param r Row index
   /// @param c Column index
   inline constexpr void push(std::uint8_t r, std::uint8_t c) noexcept
@@ -50,10 +50,7 @@ public:
   }
 
   /// @brief Removes last move from history
-  inline constexpr void pop() noexcept
-  {
-    --this->count_;
-  }
+  inline constexpr void pop() noexcept { --this->count_; }
 
   /// @brief Removes last move from history
   /// @param r Stores popped row index
@@ -61,7 +58,7 @@ public:
   inline constexpr void pop(std::uint8_t& r, std::uint8_t& c) noexcept
   {
     using impl::index_to_rc;
-  
+
     --this->count_;
     std::uint8_t byte_index = this->count_ >> 1;
     auto shift = (this->count_ & 1) << 2;
@@ -71,10 +68,7 @@ public:
 
   /// @brief Returns number of moves currently recorded
   /// @return Number of recorded moves
-  inline constexpr std::uint8_t count() const noexcept
-  {
-    return this->count_;
-  }
+  inline constexpr std::uint8_t count() const noexcept { return this->count_; }
 };
 
 } // namespace pinkytoe::impl

@@ -3,10 +3,10 @@
 
 #include "pinkytoe/enums.h"
 
-namespace pinkytoe
-{
+namespace pinkytoe {
 
-class TicTacToe final {
+class TicTacToe final
+{
 
 public:
   TicTacToe();

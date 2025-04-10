@@ -3,15 +3,15 @@
 
 #include <cstdint>
 
-#include "pinkytoe/enums.h"
 #include "meta.hpp"
 #include "move_history.hpp"
+#include "pinkytoe/enums.h"
 #include "player.hpp"
 
-namespace pinkytoe::impl
-{
+namespace pinkytoe::impl {
 
-class MoveLedger final {
+class MoveLedger final
+{
   Player first_player_;
   std::int8_t r_bals_[3]{};
   std::int8_t c_bals_[3]{};
@@ -19,9 +19,8 @@ class MoveLedger final {
   MoveHistory history_{};
 
 public:
-
   /// @brief Configuration of first player required to construct
-  /// @param first_player 
+  /// @param first_player
   inline constexpr MoveLedger(Player first_player) noexcept
     : first_player_(first_player)
   {
@@ -35,20 +34,20 @@ public:
     using impl::bool_as_integral;
     using impl::enum_as_integral;
     using impl::whose_turn;
-  
+
     // Update balances
     auto move_count = this->history_.count();
     auto player = whose_turn(this->first_player_, move_count);
     auto p = enum_as_integral(player);
-  
+
     this->r_bals_[r] += p;
     this->c_bals_[c] += p;
-  
+
     auto on_diag0 = bool_as_integral<std::int8_t>(r == c);
     auto on_diag1 = bool_as_integral<std::int8_t>(r + c == 2);
     this->d_bals_[0] += on_diag0 * p;
     this->d_bals_[1] += on_diag1 * p;
-  
+
     // Add move to history
     this->history_.push(r, c);
   }
@@ -59,19 +58,19 @@ public:
     using impl::bool_as_integral;
     using impl::enum_as_integral;
     using impl::whose_turn;
-  
+
     // Pop last move from history
     std::uint8_t r{}, c{};
     this->history_.pop(r, c);
-  
+
     auto move_count = this->history_.count();
     auto player = whose_turn(this->first_player_, move_count);
     auto p = enum_as_integral(player);
-  
+
     // Rollback balances
     this->r_bals_[r] -= p;
     this->c_bals_[c] -= p;
-  
+
     auto on_diag0 = bool_as_integral<std::int8_t>(r == c);
     auto on_diag1 = bool_as_integral<std::int8_t>(r + c == 2);
     this->d_bals_[0] -= on_diag0 * p;
@@ -86,18 +85,18 @@ public:
     using impl::bool_as_integral;
     using impl::enum_as_integral;
     using impl::whose_turn;
-  
+
     // Pop last move from history
     this->history_.pop(r, c);
-  
+
     auto move_count = this->history_.count();
     auto player = whose_turn(this->first_player_, move_count);
     auto p = enum_as_integral(player);
-  
+
     // Rollback balances
     this->r_bals_[r] -= p;
     this->c_bals_[c] -= p;
-  
+
     auto on_diag0 = bool_as_integral<std::int8_t>(r == c);
     auto on_diag1 = bool_as_integral<std::int8_t>(r + c == 2);
     this->d_bals_[0] -= on_diag0 * p;
