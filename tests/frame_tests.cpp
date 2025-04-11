@@ -1,11 +1,12 @@
-#include <gtest/gtest.h>
 #include <cstdint>
+#include <gtest/gtest.h>
 
 #include "frame.hpp"
 
 using pinkytoe::impl::Frame;
 
-TEST(FrameTests, constructor_test) {
+TEST(FrameTests, constructor_test)
+{
   /// Arrange: Create a default object
   Frame frame;
 
@@ -20,7 +21,8 @@ TEST(FrameTests, constructor_test) {
   }
 }
 
-TEST(FrameTests, get_set_test) {
+TEST(FrameTests, get_set_test)
+{
   std::int8_t p[3] = { -1, 0, 1 };
   Frame frame;
 

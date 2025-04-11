@@ -38,3 +38,7 @@ ctest --test-dir build/tests
 
 ## Test Suite
 The `libpinkytoe` test suite is built upon the GoogleTest framework [https://github.com/google/googletest](https://github.com/google/googletest)
+
+
+## TODOs
+- Automate code formatting as part of the VCS workflow
