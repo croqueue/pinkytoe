@@ -8,7 +8,7 @@
 
 namespace pinkytoe::impl {
 
-/// PROTOTYPES
+/// PROTO
 
 /// @brief Converts row/column to flat matrix index
 /// @param r Row index
@@ -31,7 +31,7 @@ index_to_rc(std::uint8_t i, std::uint8_t& r, std::uint8_t& c) noexcept;
 inline constexpr bool
 position_valid(Row row, Column column) noexcept;
 
-/// IMPLEMENTATIONS
+/// IMPL
 
 /// @brief Converts row/column to flat matrix index
 /// @param r Row index
