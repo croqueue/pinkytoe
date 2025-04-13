@@ -29,13 +29,6 @@ enum class Column : std::uint8_t
   Right = 2
 };
 
-enum class MoveStatus : std::uint8_t
-{
-  Ok = 0,
-  PlayerXWins = 1,
-  PlayerOWins = 2
-};
-
 } // namespace pinkytoe
 
 #endif // !PINKYTOE_ENUMS_H_

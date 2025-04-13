@@ -1,5 +1,5 @@
-#ifndef PINKYTOE_IMPL_MOVE_LEDGER_HPP_
-#define PINKYTOE_IMPL_MOVE_LEDGER_HPP_
+#ifndef PINKYTOE_IMPL_SCORE_LEDGER_HPP_
+#define PINKYTOE_IMPL_SCORE_LEDGER_HPP_
 
 #include <cstdint>
 
@@ -10,25 +10,61 @@
 
 namespace pinkytoe::impl {
 
+/// @brief
+enum class LineDirection : std::uint8_t
+{
+  Horizontal = 0,
+  Vertical = 1,
+  Diagonal = 2
+};
+
+/// @brief
+struct LedgerStatus final
+{
+  /// @brief Indicates winner (-1=X, 0=None, or 1=O)
+  std::int8_t winner;
+  /// @brief Indicates direction of winning line (garbage if `winner == 0`)
+  LineDirection line_dir;
+  /// @brief Value `0..2` for horizontal/vertical, `0..1` for diagonal
+  std::uint8_t line_pos;
+
+  inline constexpr LedgerStatus() noexcept
+    : winner{}
+    , line_dir{}
+    , line_pos{}
+  {
+  }
+};
+
 class ScoreLedger final
 {
-  std::int8_t r_bals_[3];
-  std::int8_t c_bals_[3];
-  std::int8_t d_bals_[2];
+  std::int8_t balances_[3][3];
   MoveHistory history_;
 
+  /// @brief
+  /// @tparam LineDir
+  /// @param status
+  /// @return
+  template<LineDirection LineDir>
+  inline constexpr void check_direction(LedgerStatus& status) const noexcept;
+
+  /// @brief
+  /// @tparam LineDir
+  /// @tparam LinePos
+  /// @param status
+  template<LineDirection LineDir, std::uint8_t LinePos>
+  constexpr void check_line(LedgerStatus& status) const noexcept;
+
 public:
-  /// @brief First player config and MoveHistory ref required
+  /// @brief First player config required
   /// @param p1
   inline constexpr ScoreLedger(std::int8_t p1) noexcept
-    : r_bals_{ 0 }
-    , c_bals_{ 0 }
-    , d_bals_{ 0 }
+    : balances_{ 0 }
     , history_(p1)
   {
   }
 
-  /// OPERATIONS
+  /// [OPS]
 
   /// @brief Records next move
   /// @param r Row index
@@ -43,7 +79,11 @@ public:
   /// @param c Stores column index of removed record
   inline constexpr void remove_last(std::uint8_t& r, std::uint8_t& c) noexcept;
 
-  /// PROPERTIES
+  /// @brief Checks current status of the game according to the ledger
+  /// @param status Mutable reference to status fields object
+  inline constexpr void check_status(LedgerStatus& status) const noexcept;
+
+  /// [PROPS]
 
   /// @brief Fetches last move in history
   /// @param r Stores last row index
@@ -86,14 +126,12 @@ ScoreLedger::record_next(std::uint8_t r, std::uint8_t c) noexcept
   std::int8_t p = this->history_.next_player();
 
   /// Update rows/columns
-  this->r_bals_[r] += p;
-  this->c_bals_[c] += p;
+  this->balances_[0][r] += p;
+  this->balances_[1][c] += p;
 
   /// Update diagonals
-  auto on_diag0 = bool_as_integral<std::int8_t>(r == c);
-  auto on_diag1 = bool_as_integral<std::int8_t>(r + c == 2);
-  this->d_bals_[0] += on_diag0 * p;
-  this->d_bals_[1] += on_diag1 * p;
+  this->balances_[2][0] += p * bool_as_integral<std::int8_t>(r == c);
+  this->balances_[2][1] += p * bool_as_integral<std::int8_t>(r + c == 2);
 
   // Update move history
   this->history_.push(r, c);
@@ -103,22 +141,8 @@ ScoreLedger::record_next(std::uint8_t r, std::uint8_t c) noexcept
 constexpr void
 ScoreLedger::remove_last() noexcept
 {
-  /// Rollback balance factors based on last to play
-  std::int8_t p = this->history_.last_player();
-
-  /// Pop last move from history
   std::uint8_t r{}, c{};
-  this->history_.pop(r, c);
-
-  /// Rollback rows/columns
-  this->r_bals_[r] -= p;
-  this->c_bals_[c] -= p;
-
-  /// Rollback diagonals
-  auto on_diag0 = bool_as_integral<std::int8_t>(r == c);
-  auto on_diag1 = bool_as_integral<std::int8_t>(r + c == 2);
-  this->d_bals_[0] -= on_diag0 * p;
-  this->d_bals_[1] -= on_diag1 * p;
+  this->remove_last(r, c);
 }
 
 /// @brief Removes last record from ledger and stores removed position
@@ -134,16 +158,57 @@ ScoreLedger::remove_last(std::uint8_t& r, std::uint8_t& c) noexcept
   this->history_.pop(r, c);
 
   /// Rollback rows/columns
-  this->r_bals_[r] -= p;
-  this->c_bals_[c] -= p;
+  this->balances_[0][r] -= p;
+  this->balances_[1][c] -= p;
 
   /// Rollback diagonals
-  auto on_diag0 = bool_as_integral<std::int8_t>(r == c);
-  auto on_diag1 = bool_as_integral<std::int8_t>(r + c == 2);
-  this->d_bals_[0] -= on_diag0 * p;
-  this->d_bals_[1] -= on_diag1 * p;
+  this->balances_[2][0] -= p * bool_as_integral<std::int8_t>(r == c);
+  this->balances_[2][1] -= p * bool_as_integral<std::int8_t>(r + c == 2);
+}
+
+/// @brief Checks current status of the game according to the ledger
+/// @param status Mutable reference to status fields object
+constexpr void
+ScoreLedger::check_status(LedgerStatus& status) const noexcept
+{
+  status.winner = 0;
+  status.line_dir = LineDirection::Horizontal;
+  status.line_pos = 0;
+  this->check_direction<LineDirection::Horizontal>(status);
+  this->check_direction<LineDirection::Vertical>(status);
+  this->check_direction<LineDirection::Diagonal>(status);
+}
+
+template<LineDirection LineDir>
+constexpr void
+ScoreLedger::check_direction(LedgerStatus& status) const noexcept
+{
+  this->check_line<LineDir, 0>(status);
+  this->check_line<LineDir, 1>(status);
+
+  if constexpr (LineDir != LineDirection::Diagonal) {
+    this->check_line<LineDir, 2>(status);
+  }
+}
+
+template<LineDirection LineDir, std::uint8_t LinePos>
+constexpr void
+ScoreLedger::check_line(LedgerStatus& status) const noexcept
+{
+  /// Determine winner at position/direction (or none)
+  auto ld_int = enum_as_integral(LineDir);
+  auto value = this->balances_[ld_int][LinePos];
+  auto x_claimed = bool_as_integral<std::uint8_t>(value == -3);
+  auto o_claimed = bool_as_integral<std::uint8_t>(value == 3);
+  std::uint8_t line_claimed = x_claimed | o_claimed;
+  status.winner |= o_claimed - x_claimed;
+  /// Update line direction/position
+  ld_int *= line_claimed;
+  ld_int |= enum_as_integral(status.line_dir);
+  status.line_dir = static_cast<LineDirection>(ld_int);
+  status.line_pos |= LinePos * line_claimed;
 }
 
 } // namespace pinkytoe::impl
 
-#endif // !PINKYTOE_IMPL_MOVE_LEDGER_HPP_
+#endif // !PINKYTOE_IMPL_SCORE_LEDGER_HPP_
