@@ -16,22 +16,84 @@ TEST(ScoreLedgerTests, constructor_test)
 
 TEST(ScoreLedgerTests, x_horizontal_win_test)
 {
-  // winner starts
+  ScoreLedger ledger(-1);
+  LedgerStatus status;
+
+  /// X claims bottom-middle square
+  ledger.record_next(2, 1);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O claims center square
+  ledger.record_next(1, 1);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X claims bottom-right square
+  ledger.record_next(2, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O claims top-right square
+  ledger.record_next(0, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X claims bottom-left square (winning move)
+  ledger.record_next(2, 0);
+  ledger.check_status(status);
+
+  /// Status should reflect that X claimed the bottom row
+  ASSERT_EQ(status.winner, -1);
+  ASSERT_EQ(status.line_dir, LineDirection::Horizontal);
+  ASSERT_EQ(status.line_pos, 2);
 }
 
 TEST(ScoreLedgerTests, o_horizontal_win_test)
 {
-  // winner starts
+  ScoreLedger ledger(1);
+  LedgerStatus status;
+
+  /// O claims center square
+  ledger.record_next(1, 1);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X claims bottom-middle square
+  ledger.record_next(2, 1);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O claims middle-left square
+  ledger.record_next(1, 0);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X claims bottom-left square
+  ledger.record_next(2, 0);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// 0 claims middle-right square (winning move)
+  ledger.record_next(1, 2);
+  ledger.check_status(status);
+
+  /// Status should reflect that O claimed the middle row
+  ASSERT_EQ(status.winner, 1);
+  ASSERT_EQ(status.line_dir, LineDirection::Horizontal);
+  ASSERT_EQ(status.line_pos, 1);
 }
 
 TEST(ScoreLedgerTests, x_vertical_win_test)
 {
   // loser starts
+  ASSERT_EQ(42, 13);
 }
 
 TEST(ScoreLedgerTests, o_vertical_win_test)
 {
   // loser starts
+  ASSERT_EQ(42, 13);
 }
 
 TEST(ScoreLedgerTests, x_diagonal_win_test)
@@ -72,11 +134,13 @@ TEST(ScoreLedgerTests, x_diagonal_win_test)
 TEST(ScoreLedgerTests, o_diagonal_win_test)
 {
   // loser starts
+  ASSERT_EQ(42, 13);
 }
 
 TEST(ScoreLedgerTests, x_antidiagonal_win_test)
 {
   // loser starts
+  ASSERT_EQ(42, 13);
 }
 
 TEST(ScoreLedgerTests, o_antidiagonal_win_test)
@@ -121,6 +185,7 @@ TEST(ScoreLedgerTests, last_move_test)
   // std::uint8_t r_tmp{}, c_tmp{};
 
   /// TODO: stuff
+  ASSERT_EQ(42, 13);
 }
 
 TEST(ScoreLedgerTests, remove_last_test)
