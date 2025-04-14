@@ -201,14 +201,72 @@ TEST(ScoreLedgerTests, x_diagonal_win_test)
 
 TEST(ScoreLedgerTests, o_diagonal_win_test)
 {
-  // loser starts
-  ASSERT_EQ(42, 13);
+  ScoreLedger ledger(1); // 1 = Player::O starts
+  LedgerStatus status;
+
+  /// O plays center square
+  ledger.record_next(1, 1);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X plays middle-left square
+  ledger.record_next(1, 0);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O plays bottom-right square
+  ledger.record_next(2, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X plays middle-right square
+  ledger.record_next(1, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O plays top-left square (winning move)
+  ledger.record_next(0, 0);
+
+  /// Status should show that O won the main diagonal
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 1);
+  ASSERT_EQ(status.line_dir, LineDirection::Diagonal);
+  ASSERT_EQ(status.line_pos, 0);
 }
 
 TEST(ScoreLedgerTests, x_antidiagonal_win_test)
 {
-  // loser starts
-  ASSERT_EQ(42, 13);
+  ScoreLedger ledger(-1); // -1 = Player::X starts
+  LedgerStatus status;
+
+  /// X plays top-right square
+  ledger.record_next(0, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O plays bottom-right square
+  ledger.record_next(2, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X plays bottom-left square
+  ledger.record_next(2, 0);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O plays top-left square
+  ledger.record_next(0, 0);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X plays center square (winning move)
+  ledger.record_next(1, 1);
+
+  /// Status should show that X won the antidiagonal
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, -1);
+  ASSERT_EQ(status.line_dir, LineDirection::Diagonal);
+  ASSERT_EQ(status.line_pos, 1);
 }
 
 TEST(ScoreLedgerTests, o_antidiagonal_win_test)
@@ -248,12 +306,26 @@ TEST(ScoreLedgerTests, o_antidiagonal_win_test)
 
 TEST(ScoreLedgerTests, last_move_test)
 {
-  // ScoreLedger ledger(1); // 1 = Player::O starts
-  // LedgerStatus status;
-  // std::uint8_t r_tmp{}, c_tmp{};
+  ScoreLedger ledger(-1);
+  LedgerStatus status;
+  constexpr auto move_count = 3;
 
-  /// TODO: stuff
-  ASSERT_EQ(42, 13);
+  const std::uint8_t r[3] = { 0, 0, 1 };
+  const std::uint8_t c[3] = { 1, 2, 0 };
+  std::uint8_t r_tmp{}, c_tmp{};
+
+  ledger.record_next(r[0], c[0]);
+
+  for (auto i = 1; i < move_count; ++i) {
+    ledger.last_move(r_tmp, c_tmp);
+    ASSERT_EQ(r_tmp, r[i - 1]);
+    ASSERT_EQ(c_tmp, c[i - 1]);
+    ledger.record_next(r[i], c[i]);
+  }
+
+  ledger.last_move(r_tmp, c_tmp);
+  ASSERT_EQ(r_tmp, r[move_count - 1]);
+  ASSERT_EQ(c_tmp, c[move_count - 1]);
 }
 
 TEST(ScoreLedgerTests, remove_last_test)
