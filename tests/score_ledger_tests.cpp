@@ -86,14 +86,82 @@ TEST(ScoreLedgerTests, o_horizontal_win_test)
 
 TEST(ScoreLedgerTests, x_vertical_win_test)
 {
-  // loser starts
-  ASSERT_EQ(42, 13);
+  ScoreLedger ledger(1);
+  LedgerStatus status;
+
+  /// O claims center square
+  ledger.record_next(1, 1);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X claims the top-right square
+  ledger.record_next(0, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O claims the middle-left square
+  ledger.record_next(1, 0);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X claims the bottom-right square
+  ledger.record_next(2, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O claims the bottom-left square
+  ledger.record_next(2, 0);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X claims middle-right square (winning move)
+  ledger.record_next(1, 2);
+  ledger.check_status(status);
+
+  /// Status should reflect that X won the right column
+  ASSERT_EQ(status.winner, -1);
+  ASSERT_EQ(status.line_dir, LineDirection::Vertical);
+  ASSERT_EQ(status.line_pos, 2);
 }
 
 TEST(ScoreLedgerTests, o_vertical_win_test)
 {
-  // loser starts
-  ASSERT_EQ(42, 13);
+  ScoreLedger ledger(-1);
+  LedgerStatus status;
+
+  /// X claims center square
+  ledger.record_next(1, 1);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// 0 claims the top-left square
+  ledger.record_next(0, 0);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X claims the middle-right square
+  ledger.record_next(1, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O claims the bottom-left square
+  ledger.record_next(2, 0);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// X claims the bottom-right square
+  ledger.record_next(2, 2);
+  ledger.check_status(status);
+  ASSERT_EQ(status.winner, 0);
+
+  /// O claims middle-left square (winning move)
+  ledger.record_next(1, 0);
+  ledger.check_status(status);
+
+  /// Status should reflect that X won the right column
+  ASSERT_EQ(status.winner, 1);
+  ASSERT_EQ(status.line_dir, LineDirection::Vertical);
+  ASSERT_EQ(status.line_pos, 0);
 }
 
 TEST(ScoreLedgerTests, x_diagonal_win_test)
