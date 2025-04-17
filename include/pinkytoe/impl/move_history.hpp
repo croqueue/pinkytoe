@@ -3,8 +3,8 @@
 
 #include <cstdint>
 
-#include "player.hpp"
-#include "position.hpp"
+#include "pinkytoe/impl/player.hpp"
+#include "pinkytoe/impl/position.hpp"
 
 namespace pinkytoe::impl {
 
@@ -28,6 +28,11 @@ public:
   /// @param r Stores row index from the top of the stack
   /// @param c Stores column index from the top of the stack
   inline constexpr void top(std::uint8_t& r, std::uint8_t& c) const noexcept;
+
+  /// @brief Retrieves move position from the top of the stack
+  /// @param row Stores row enumeration from the top of the stack
+  /// @param column Stores column enumeration from the top of the stack
+  inline constexpr void top(Row& row, Column& column) const noexcept;
 
   /// @brief Adds next move to history
   /// @param r Row index
@@ -79,6 +84,19 @@ MoveHistory::top(std::uint8_t& r, std::uint8_t& c) const noexcept
   std::uint8_t shift = (stack_pos & 1) << 2;
   std::uint8_t data = (this->data_[byte_index] >> shift) & 15;
   index_to_rc(data, r, c);
+}
+
+/// @brief Retrieves move position from the top of the stack
+/// @param row Stores row enumeration from the top of the stack
+/// @param column Stores column enumeration from the top of the stack
+constexpr void
+MoveHistory::top(Row& row, Column& column) const noexcept
+{
+  std::uint8_t stack_pos = this->count_ - 1;
+  std::uint8_t byte_index = stack_pos >> 1;
+  std::uint8_t shift = (stack_pos & 1) << 2;
+  std::uint8_t data = (this->data_[byte_index] >> shift) & 15;
+  index_to_rc(data, row, column);
 }
 
 /// @brief Adds next move to history

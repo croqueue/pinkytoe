@@ -3,8 +3,8 @@
 
 #include <cstdint>
 
-#include "meta.hpp"
 #include "pinkytoe/enums.h"
+#include "pinkytoe/impl/player.hpp"
 
 namespace pinkytoe::impl {
 

@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include "position.hpp"
+#include "pinkytoe/impl/position.hpp"
 
 namespace pinkytoe::impl {
 
@@ -24,7 +24,7 @@ public:
   /// @param c Column index
   /// @return Current square value
   inline constexpr std::int8_t get_square(std::uint8_t r,
-                                          std::uint8_t c) noexcept
+                                          std::uint8_t c) const noexcept
   {
     /// Calculate storage location of the bits
     std::uint8_t index = rc_to_index(r, c);

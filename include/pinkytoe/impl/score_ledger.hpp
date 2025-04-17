@@ -3,9 +3,9 @@
 
 #include <cstdint>
 
-#include "meta.hpp"
-#include "move_history.hpp"
 #include "pinkytoe/enums.h"
+#include "pinkytoe/impl/meta.hpp"
+#include "pinkytoe/impl/move_history.hpp"
 #include "player.hpp"
 
 namespace pinkytoe::impl {
@@ -21,6 +21,8 @@ enum class LineDirection : std::uint8_t
 /// @brief
 struct LedgerStatus final
 {
+  /// @brief
+  std::uint8_t move_count;
   /// @brief Indicates winner (-1=X, 0=None, or 1=O)
   std::int8_t winner;
   /// @brief Indicates direction of winning line (garbage if `winner == 0`)
@@ -29,10 +31,28 @@ struct LedgerStatus final
   std::uint8_t line_pos;
 
   inline constexpr LedgerStatus() noexcept
-    : winner{}
+    : move_count{}
+    , winner{}
     , line_dir{}
     , line_pos{}
   {
+  }
+
+  /// @brief TODO: impl
+  /// @return
+  inline constexpr MoveResult to_move_result() const noexcept
+  {
+    std::uint8_t result{};
+
+    switch (this->winner) {
+      case -1:
+
+        break;
+      case 1:
+        break;
+      default:
+        break;
+    }
   }
 };
 
@@ -92,6 +112,11 @@ public:
                                   std::uint8_t& c) const noexcept
   {
     this->history_.top(r, c);
+  }
+
+  inline constexpr void last_move(Row& row, Column& column) const noexcept
+  {
+    this->history_.top(row, column);
   }
 
   /// @brief Player that moved last
@@ -171,6 +196,7 @@ ScoreLedger::remove_last(std::uint8_t& r, std::uint8_t& c) noexcept
 constexpr void
 ScoreLedger::check_status(LedgerStatus& status) const noexcept
 {
+  status.move_count = this->history_.count();
   status.winner = 0;
   status.line_dir = LineDirection::Horizontal;
   status.line_pos = 0;
