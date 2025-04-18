@@ -32,17 +32,17 @@ public:
   /// @param row
   /// @param column
   /// @return
-  MoveResult play_next(Row row, Column column) noexcept;
+  constexpr MoveResult play_next(Row row, Column column) noexcept;
 
   /// @brief
   /// @return
-  MoveResult undo_last() noexcept;
+  constexpr MoveResult undo_last() noexcept;
 
   /// @brief
   /// @param row
   /// @param column
   /// @return
-  MoveResult undo_last(Row& row, Column& column) noexcept;
+  constexpr MoveResult undo_last(Row& row, Column& column) noexcept;
 
   /// @brief
   /// @param outbuf

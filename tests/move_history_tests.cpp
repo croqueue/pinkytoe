@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <gtest/gtest.h>
 
-#include "move_history.hpp"
+#include "pinkytoe/impl/move_history.hpp"
 
 using pinkytoe::impl::MoveHistory;
 

@@ -38,13 +38,13 @@ BasicToe::play_next(Row row, Column column) noexcept
 constexpr MoveResult
 BasicToe::undo_last() noexcept
 {
-  ;
+  return MoveResult::Ok;
 }
 
 constexpr MoveResult
 BasicToe::undo_last(Row& row, Column& column) noexcept
 {
-  ;
+  return MoveResult::Ok;
 }
 
 constexpr void

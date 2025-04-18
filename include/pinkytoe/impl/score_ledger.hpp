@@ -42,17 +42,18 @@ struct LedgerStatus final
   /// @return
   inline constexpr MoveResult to_move_result() const noexcept
   {
-    std::uint8_t result{};
+    // std::uint8_t result{};
 
-    switch (this->winner) {
-      case -1:
+    // switch (this->winner) {
+    //   case -1:
 
-        break;
-      case 1:
-        break;
-      default:
-        break;
-    }
+    //     break;
+    //   case 1:
+    //     break;
+    //   default:
+    //     break;
+    // }
+    return MoveResult::Ok;
   }
 };
 

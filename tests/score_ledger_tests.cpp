@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "score_ledger.hpp"
+#include "pinkytoe/impl/score_ledger.hpp"
 
 using pinkytoe::impl::LedgerStatus;
 using pinkytoe::impl::LineDirection;

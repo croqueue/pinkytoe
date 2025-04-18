@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <gtest/gtest.h>
 
-#include "frame.hpp"
+#include "pinkytoe/impl/frame.hpp"
 
 using pinkytoe::impl::Frame;
 
