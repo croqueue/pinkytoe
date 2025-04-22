@@ -46,7 +46,7 @@ public:
 
   /// @brief
   /// @param outbuf
-  void read_board(Player outbuf[3][3]) const noexcept;
+  constexpr void read_board(Player outbuf[3][3]) const noexcept;
 
   /// [PROPS] ///
 

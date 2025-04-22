@@ -1,4 +1,4 @@
-#include "pinkytoe/ultimate_tictactoe.h"
+#include "pinkytoe/ultimate_toe.h"
 
 namespace pinkytoe {
 

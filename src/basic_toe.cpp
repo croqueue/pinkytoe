@@ -44,6 +44,8 @@ BasicToe::undo_last() noexcept
 constexpr MoveResult
 BasicToe::undo_last(Row& row, Column& column) noexcept
 {
+  (void)row;
+  (void)column;
   return MoveResult::Ok;
 }
 
