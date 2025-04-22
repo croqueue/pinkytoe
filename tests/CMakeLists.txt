@@ -24,7 +24,6 @@ add_executable(
 target_include_directories(frame_tests
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/include
 )
 
 target_link_libraries(frame_tests
@@ -43,7 +42,6 @@ add_executable(
 target_include_directories(move_history_tests
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/include
 )
 
 target_link_libraries(move_history_tests
@@ -63,7 +61,6 @@ add_executable(
 target_include_directories(score_ledger_tests
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src/include
 )
 
 target_link_libraries(score_ledger_tests
@@ -72,3 +69,22 @@ target_link_libraries(score_ledger_tests
 )
 
 gtest_discover_tests(score_ledger_tests)
+
+# BasicToeTests
+
+add_executable(
+  basic_toe_tests
+  basic_toe_tests.cpp
+)
+
+target_include_directories(basic_toe_tests
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../include
+)
+
+target_link_libraries(basic_toe_tests
+  pinkytoe
+  GTest::gtest_main
+)
+
+gtest_discover_tests(basic_toe_tests)

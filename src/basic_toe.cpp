@@ -38,14 +38,28 @@ BasicToe::play_next(Row row, Column column) noexcept
 constexpr MoveResult
 BasicToe::undo_last() noexcept
 {
+  std::uint8_t r{}, c{};
+
+  if (this->ledger_.move_count() == 0)
+    return MoveResult::CannotUndo;
+
+  this->ledger_.remove_last(r, c);
+  this->frame_.set_square(r, c, 0);
   return MoveResult::Ok;
 }
 
 constexpr MoveResult
 BasicToe::undo_last(Row& row, Column& column) noexcept
 {
-  (void)row;
-  (void)column;
+  std::uint8_t r{}, c{};
+
+  if (this->ledger_.move_count() == 0)
+    return MoveResult::CannotUndo;
+
+  this->ledger_.remove_last(r, c);
+  this->frame_.set_square(r, c, 0);
+  row = static_cast<Row>(r);
+  column = static_cast<Column>(c);
   return MoveResult::Ok;
 }
 
