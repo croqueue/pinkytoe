@@ -8,7 +8,17 @@ project(pinkytoe
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_subdirectory(tests)
+option(BUILD_TESTS "Build the unit tests" OFF)
+option(BUILD_EXAMPLES "Build the usage examples" OFF)
+
+if (BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif()
+
+if (BUILD_EXAMPLES)
+  add_subdirectory(examples)
+endif()
 
 file(GLOB SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
@@ -17,8 +27,6 @@ add_library(pinkytoe STATIC ${SRC_FILES})
 target_include_directories(pinkytoe
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  # PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/include
 )
 
 set_target_properties(pinkytoe PROPERTIES VERSION ${PROJECT_VERSION})
