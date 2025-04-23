@@ -17,6 +17,7 @@ I encourage anyone in the FOSS community to fork me and create examples of `libp
 
 ## Dependencies
 `libpinkytoe` depends upon the following headers from the C++ standard library:
+- `array`
 - `cstdint`
 - `type_traits`
 

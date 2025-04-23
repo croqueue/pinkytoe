@@ -1,10 +1,10 @@
-#include "pinkytoe/basic_toe.h"
-#include "pinkytoe/enums.h"
+#include "pinkytoe/impl/basic_toe.hpp"
+#include "pinkytoe/impl/enums.hpp"
 #include "pinkytoe/impl/meta.hpp"
 #include "pinkytoe/impl/position.hpp"
 #include <cstdint>
 
-namespace pinkytoe {
+namespace pinkytoe::impl {
 
 constexpr MoveResult
 BasicToe::play_next(Row row, Column column) noexcept
@@ -63,15 +63,4 @@ BasicToe::undo_last(Row& row, Column& column) noexcept
   return MoveResult::Ok;
 }
 
-constexpr void
-BasicToe::read_board(Player outbuf[3][3]) const noexcept
-{
-  for (std::uint8_t i = 0; i < 3; ++i) {
-    for (std::uint8_t j = 0; j < 3; ++j) {
-      auto claimed_by = static_cast<Player>(this->frame_.get_square(i, j));
-      outbuf[i][j] = claimed_by;
-    }
-  }
-}
-
-} // namespace pinkytoe
+} // namespace pinkytoe::impl

@@ -15,6 +15,17 @@ class MoveHistory final
   std::uint8_t count_;
   std::int8_t p1_;
 
+  inline constexpr void set_p1(std::int8_t p1) noexcept { this->p1_ = p1; }
+
+  inline constexpr MoveHistory() noexcept
+    : data_{}
+    , count_{}
+    , p1_{}
+  {
+  }
+
+  friend class ScoreLedger;
+
 public:
   /// @brief Initializes empty history
   inline constexpr MoveHistory(std::int8_t p1) noexcept

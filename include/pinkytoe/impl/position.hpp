@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include "pinkytoe/enums.h"
+#include "pinkytoe/impl/enums.hpp"
 #include "pinkytoe/impl/meta.hpp"
 
 namespace pinkytoe::impl {

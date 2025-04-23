@@ -1,12 +1,12 @@
-#include "enums.h"
-#include "pinkytoe/omni.h"
+#include "enums.hpp"
+#include "pinkytoe/api.hpp"
 #include <cstdio>
 
-using pinkytoe::BasicToe;
 using pinkytoe::Column;
 using pinkytoe::MoveResult;
 using pinkytoe::Player;
 using pinkytoe::Row;
+using pinkytoe::TicTacToe;
 
 namespace pinkytoe::examples::basic_term {
 
@@ -27,7 +27,7 @@ struct GameConfig final
 
 class GameContext final
 {
-  BasicToe game_;
+  TicTacToe game_;
   const GameConfig config_;
   Player frame_buf_[3][3];
 

@@ -1,28 +1,38 @@
-#ifndef PINKYTOE_BASIC_TOE_H_
-#define PINKYTOE_BASIC_TOE_H_
+#pragma once
 
-#include "pinkytoe/enums.h"
+#include "pinkytoe/impl/enums.hpp"
 #include "pinkytoe/impl/frame.hpp"
 #include "pinkytoe/impl/meta.hpp"
 #include "pinkytoe/impl/score_ledger.hpp"
 #include <cstdint>
 
-namespace pinkytoe {
+namespace pinkytoe::impl {
 
 class BasicToe final
 {
-  // using impl::Frame;
-  // using impl::ScoreLedger;
-  // using impl::LedgerStatus;
-
   impl::Frame frame_;
   impl::ScoreLedger ledger_;
   mutable impl::LedgerStatus gstat_;
+
+  inline constexpr BasicToe() noexcept
+    : frame_{}
+    , ledger_{}
+    , gstat_{}
+  {
+  }
+
+  inline constexpr void set_first_player(Player first_player) noexcept
+  {
+    this->ledger_.set_p1(enum_as_integral(first_player));
+  }
+
+  friend class UltimateToe;
 
 public:
   inline explicit constexpr BasicToe(Player first_player) noexcept
     : frame_{}
     , ledger_(impl::enum_as_integral(first_player))
+    , gstat_{}
   {
   }
 
@@ -46,7 +56,15 @@ public:
 
   /// @brief
   /// @param outbuf
-  constexpr void read_board(Player outbuf[3][3]) const noexcept;
+  inline constexpr void read_board(Player outbuf[3][3]) const noexcept
+  {
+    for (std::uint8_t i = 0; i < 3; ++i) {
+      for (std::uint8_t j = 0; j < 3; ++j) {
+        auto claimed_by = static_cast<Player>(this->frame_.get_square(i, j));
+        outbuf[i][j] = claimed_by;
+      }
+    }
+  }
 
   /// [PROPS] ///
 
@@ -95,6 +113,4 @@ public:
   }
 };
 
-} // namespace pinkytoe
-
-#endif // !PINKYTOE_BASIC_TOE_H_
+} // namespace pinkytoe::impl

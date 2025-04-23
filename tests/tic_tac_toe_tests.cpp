@@ -1,17 +1,16 @@
-#include "pinkytoe/basic_toe.h"
-#include "pinkytoe/enums.h"
+#include "pinkytoe/api.hpp"
 #include <cstdint>
 #include <gtest/gtest.h>
 
-using pinkytoe::BasicToe;
 using pinkytoe::Column;
 using pinkytoe::Player;
 using pinkytoe::Row;
+using pinkytoe::TicTacToe;
 
-TEST(BasicToeTests, constructor_test)
+TEST(TicTacToeTests, constructor_test)
 {
   Player first_player = Player::X;
-  BasicToe game(first_player);
+  TicTacToe game(first_player);
   Row row{};
   Column column{};
 

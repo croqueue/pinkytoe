@@ -1,9 +1,8 @@
-#ifndef PINKYTOE_ENUMS_H_
-#define PINKYTOE_ENUMS_H_
+#pragma once
 
 #include <cstdint>
 
-namespace pinkytoe {
+namespace pinkytoe::impl {
 
 /// @brief Enumeration of players
 enum class Player : std::int8_t
@@ -55,6 +54,4 @@ enum class MoveResult : std::uint8_t
   CannotUndo = 255
 };
 
-} // namespace pinkytoe
-
-#endif // !PINKYTOE_ENUMS_H_
+} // namespace pinkytoe::impl

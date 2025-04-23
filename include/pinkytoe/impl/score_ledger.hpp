@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include "pinkytoe/enums.h"
+#include "pinkytoe/impl/enums.hpp"
 #include "pinkytoe/impl/meta.hpp"
 #include "pinkytoe/impl/move_history.hpp"
 #include "player.hpp"
@@ -75,6 +75,19 @@ class ScoreLedger final
   /// @param status
   template<LineDirection LineDir, std::uint8_t LinePos>
   constexpr void check_line(LedgerStatus& status) const noexcept;
+
+  inline constexpr void set_p1(std::int8_t p1) noexcept
+  {
+    this->history_.set_p1(p1);
+  }
+
+  inline constexpr ScoreLedger() noexcept
+    : balances_{ 0 }
+    , history_{}
+  {
+  }
+
+  friend class BasicToe;
 
 public:
   /// @brief First player config required
