@@ -20,9 +20,17 @@ if (BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-file(GLOB SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+# file(GLOB SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
-add_library(pinkytoe STATIC ${SRC_FILES})
+add_library(pinkytoe STATIC include/pinkytoe/api.h)
+
+set_source_files_properties(
+  include/pinkytoe/api.h
+  PROPERTIES
+  LANGUAGE CXX
+)
+
+# target_sources(pinkytoe PRIVATE include/pinkytoe/api.h)
 
 target_include_directories(pinkytoe
   PUBLIC

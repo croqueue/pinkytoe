@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PINKYTOE_API_H_
+#define PINKYTOE_API_H_
 
 #include "pinkytoe/impl/basic_toe.hpp"
 #include "pinkytoe/impl/enums.hpp"
@@ -19,3 +20,5 @@ using impl::Row;
 using UltimateTicTacToe = impl::UltimateToe;
 
 } // namespace pinkytoe
+
+#endif // !PINKYTOE_API_H_

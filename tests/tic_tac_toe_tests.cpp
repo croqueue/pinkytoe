@@ -1,4 +1,4 @@
-#include "pinkytoe/api.hpp"
+#include "pinkytoe/api.h"
 #include <cstdint>
 #include <gtest/gtest.h>
 

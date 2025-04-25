@@ -43,7 +43,6 @@ target_include_directories(move_history_tests
 )
 
 target_link_libraries(move_history_tests
-  pinkytoe
   GTest::gtest_main
 )
 
@@ -62,7 +61,6 @@ target_include_directories(score_ledger_tests
 )
 
 target_link_libraries(score_ledger_tests
-  pinkytoe
   GTest::gtest_main
 )
 
@@ -81,7 +79,6 @@ target_include_directories(tic_tac_toe_tests
 )
 
 target_link_libraries(tic_tac_toe_tests
-  pinkytoe
   GTest::gtest_main
 )
 

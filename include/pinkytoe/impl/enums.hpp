@@ -32,26 +32,12 @@ enum class Column : std::uint8_t
 enum class MoveResult : std::uint8_t
 {
   Ok = 0,
-  XWinsHorizontal1,
-  XWinsHorizontal2,
-  XWinsHorizontal3,
-  XWinsVertical1,
-  XWinsVertical2,
-  XWinsVertical3,
-  XWinsDiagonal,
-  XWinsAntidiagonal,
-  OWinsHorizontal1,
-  OWinsHorizontal2,
-  OWinsHorizontal3,
-  OWinsVertical1,
-  OWinsVertical2,
-  OWinsVertical3,
-  OWinsDiagonal,
-  OWinsAntidiagonal,
-  InvalidPosition = 252,
-  SquareOccupied = 253,
-  GameIsOver = 254,
-  CannotUndo = 255
+  XWins = 1,
+  OWins = 2,
+  InvalidPosition = 3,
+  SquareOccupied = 4,
+  GameIsOver = 5,
+  CannotUndo = 6
 };
 
 } // namespace pinkytoe::impl

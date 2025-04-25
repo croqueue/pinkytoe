@@ -1,8 +1,6 @@
+#include "pinkytoe/impl/score_ledger.hpp"
 #include <gtest/gtest.h>
 
-#include "pinkytoe/impl/score_ledger.hpp"
-
-using pinkytoe::impl::LedgerStatus;
 using pinkytoe::impl::LineDirection;
 using pinkytoe::impl::ScoreLedger;
 
@@ -17,7 +15,7 @@ TEST(ScoreLedgerTests, constructor_test)
 TEST(ScoreLedgerTests, x_horizontal_win_test)
 {
   ScoreLedger ledger(-1);
-  LedgerStatus status;
+  ScoreLedger::Status status;
 
   /// X claims bottom-middle square
   ledger.record_next(2, 1);
@@ -52,7 +50,7 @@ TEST(ScoreLedgerTests, x_horizontal_win_test)
 TEST(ScoreLedgerTests, o_horizontal_win_test)
 {
   ScoreLedger ledger(1);
-  LedgerStatus status;
+  ScoreLedger::Status status;
 
   /// O claims center square
   ledger.record_next(1, 1);
@@ -87,7 +85,7 @@ TEST(ScoreLedgerTests, o_horizontal_win_test)
 TEST(ScoreLedgerTests, x_vertical_win_test)
 {
   ScoreLedger ledger(1);
-  LedgerStatus status;
+  ScoreLedger::Status status;
 
   /// O claims center square
   ledger.record_next(1, 1);
@@ -127,7 +125,7 @@ TEST(ScoreLedgerTests, x_vertical_win_test)
 TEST(ScoreLedgerTests, o_vertical_win_test)
 {
   ScoreLedger ledger(-1);
-  LedgerStatus status;
+  ScoreLedger::Status status;
 
   /// X claims center square
   ledger.record_next(1, 1);
@@ -167,7 +165,7 @@ TEST(ScoreLedgerTests, o_vertical_win_test)
 TEST(ScoreLedgerTests, x_diagonal_win_test)
 {
   ScoreLedger ledger(-1); // -1 = Player::X starts
-  LedgerStatus status;
+  ScoreLedger::Status status;
 
   /// X plays center square
   ledger.record_next(1, 1);
@@ -202,7 +200,7 @@ TEST(ScoreLedgerTests, x_diagonal_win_test)
 TEST(ScoreLedgerTests, o_diagonal_win_test)
 {
   ScoreLedger ledger(1); // 1 = Player::O starts
-  LedgerStatus status;
+  ScoreLedger::Status status;
 
   /// O plays center square
   ledger.record_next(1, 1);
@@ -237,7 +235,7 @@ TEST(ScoreLedgerTests, o_diagonal_win_test)
 TEST(ScoreLedgerTests, x_antidiagonal_win_test)
 {
   ScoreLedger ledger(-1); // -1 = Player::X starts
-  LedgerStatus status;
+  ScoreLedger::Status status;
 
   /// X plays top-right square
   ledger.record_next(0, 2);
@@ -272,7 +270,7 @@ TEST(ScoreLedgerTests, x_antidiagonal_win_test)
 TEST(ScoreLedgerTests, o_antidiagonal_win_test)
 {
   ScoreLedger ledger(1); // 1 = Player::O starts
-  LedgerStatus status;
+  ScoreLedger::Status status;
 
   /// O plays top-right square
   ledger.record_next(0, 2);
@@ -307,7 +305,7 @@ TEST(ScoreLedgerTests, o_antidiagonal_win_test)
 TEST(ScoreLedgerTests, last_move_test)
 {
   ScoreLedger ledger(-1);
-  LedgerStatus status;
+  ScoreLedger::Status status;
   constexpr auto move_count = 3;
 
   const std::uint8_t r[3] = { 0, 0, 1 };
@@ -331,7 +329,7 @@ TEST(ScoreLedgerTests, last_move_test)
 TEST(ScoreLedgerTests, remove_last_test)
 {
   ScoreLedger ledger(-1); // -1 = Player::X starts
-  LedgerStatus status;
+  ScoreLedger::Status status;
   std::uint8_t r{}, c{}, r_tmp{}, c_tmp{};
 
   /// Players fill board top -> bottom, left -> right

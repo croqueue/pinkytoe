@@ -1,5 +1,5 @@
 #include "enums.hpp"
-#include "pinkytoe/api.hpp"
+#include "pinkytoe/api.h"
 #include <cstdio>
 
 using pinkytoe::Column;
