@@ -1,4 +1,4 @@
-![libpinkytoe](https://github.com/islandu/pinkytoe/blob/main/.github/images/mascot.png)
+![libpinkytoe](https://github.com/croqueue/pinkytoe/blob/main/.github/images/mascot.png)
 
 # libpinkytoe
 _Note: This library is pre-release and is not stable_  
